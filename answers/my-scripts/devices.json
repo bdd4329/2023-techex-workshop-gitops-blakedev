@@ -1,0 +1,26 @@
+[
+    {
+        "name": "core1.north.net.coolu.edu",
+        "target": "n7700-s2-dk9.8.2.6.bin"
+    },
+    {
+        "name": "core2.north.net.coolu.edu",
+        "target": "n7700-s2-dk9.8.2.6.bin"
+    },
+    {
+        "name": "core1.south.net.coolu.edu",
+        "target": "n7700-s2-dk9.8.2.6.bin"
+    },
+    {
+        "name": "core2.south.net.coolu.edu",
+        "target": "n7700-s2-dk9.8.2.6.bin"
+    },
+    {
+        "name": "fw1.north.net.coolu.edu",
+        "target": "asa904-42-smp-k8.bin"
+    },
+    {
+        "name": "fw1.south.net.coolu.edu",
+        "target": "asa904-42-smp-k8.bin"
+    }
+]
