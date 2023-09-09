@@ -38,7 +38,7 @@ jobs:
       - name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          repository-url: https://pypi.org/p/mycoolpackage_${{ github.repository_owner }}
+          repository-url: https://pypi.org/p/mycoolpackage_${{ github.repository_owner }}/
           packages-dir: ${{ env.PACKAGE_PATH }}/dist
           print-hash: true
           verbose: true
