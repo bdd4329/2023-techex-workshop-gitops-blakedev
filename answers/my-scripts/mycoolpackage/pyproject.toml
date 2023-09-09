@@ -1,13 +1,14 @@
 [tool.poetry]
-name = "mycoolpackage_bdd4329"
+name = "mycoolpackage"
 version = "0.1.1"
-description = ""
+description = "My cool package"
 authors = ["Shannon Byrnes <sbyrnes@internet2.edu>"]
 readme = "README.md"
 packages = [{include = "my_cool_package"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+twine = "^4.0.2"
 
 
 [build-system]
