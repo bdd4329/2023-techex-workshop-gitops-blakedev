@@ -1,0 +1,44 @@
+name: Create python package PyPI release
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-python-package-pypi-release:
+    name: Create a python package release that can be installed via pip or poetry
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read   # Required to check out the code
+      id-token: write  # Required for OIDC
+
+    env:
+      PACKAGE_PATH: "./answers/my-scripts/mycoolpackage"
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install poetry
+        run: curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Build mycoolpackage
+        working-directory: ${{ env.PACKAGE_PATH }}
+        run: poetry build
+
+      - name: Get package version
+        working-directory: ${{ env.PACKAGE_PATH }}
+        run: echo PACKAGE_VERSION=$(grep version pyproject.toml | cut -d\" -f2) >> $GITHUB_ENV
+
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://pypi.org/p/mycoolpackage_${{ github.repository_owner }}
+          packages-dir: ${{ env.PACKAGE_PATH }}/dist
+          print-hash: true
+          verbose: true

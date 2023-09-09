@@ -1,12 +1,12 @@
-name: Create python package release
+name: Create python package release with semantic versioning tags
 on:
   push:
     branches:
       - main
 
 jobs:
-  create-python-package-release:
-    name: Create a python package release that can be installed via pip or poetry
+  create-python-package-release-semvar:
+    name: Create a python package release that can be installed via pip or poetry with sematic version pinning
     runs-on: ubuntu-latest
 
     env:
@@ -55,7 +55,7 @@ jobs:
 
   update-semver:
     runs-on: ubuntu-latest
-    needs: create-python-package-release
+    needs: create-python-package-release-semvar
 
     env:
       PACKAGE_PATH: "./answers/my-scripts/mycoolpackage"
