@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "mycoolpackage_bdd4329"
+name = "mycoolpackage"
 version = "0.1.1"
 description = ""
 authors = ["Shannon Byrnes <sbyrnes@internet2.edu>"]
