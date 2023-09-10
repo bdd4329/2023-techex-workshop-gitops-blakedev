@@ -53,9 +53,6 @@ jobs:
           asset_name: mycoolpackage-${{ env.PACKAGE_VERSION }}-py3-none-any.whl
           asset_content_type: application/octet-stream
 
-      - name: Intentionally fail
-        run: exit 1
-
       - name: Create Issue for a failed deployment
         if: ${{ failure() }}
         uses: dacbd/create-issue-action@main
