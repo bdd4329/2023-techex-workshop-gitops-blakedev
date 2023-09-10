@@ -1,1 +1,1 @@
-My cool package
+My Cool Package

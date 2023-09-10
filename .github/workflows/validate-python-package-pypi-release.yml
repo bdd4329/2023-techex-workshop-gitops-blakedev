@@ -1,0 +1,45 @@
+name: Validate python package PyPI release
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-python-package-pypi-release:
+    name: Create a python package release that can be installed via pip or poetry
+    runs-on: ubuntu-latest
+
+    env:
+      PACKAGE_PATH: "./answers/my-scripts/mycoolpackage"
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Get the pyproject.toml description length
+        id: get-description-length
+        run: |
+          DESCRIPTION_LENGTH=$(cat $PACKAGE_PATH/pyproject.toml | grep description | cut -d '"' -f 2 | wc -c)
+          echo "::set-output name=description-length::$DESCRIPTION_LENGTH"
+
+      - name: Validate that the there is a description set in the pyproject.toml file
+        run: |
+          if [ ${{ steps.get-description-length.outputs.description-length }} -lt 2 ]
+          then
+            echo "The pyproject.toml file does not have a description set"
+            exit 1
+          fi
+
+      - name: Get the README.md description length
+        id: get-readme-description-length
+        run: |
+          README_DESCRIPTION_LENGTH=$(cat $PACKAGE_PATH/README.md | wc -l | awk '{print $1}')
+          echo "::set-output name=description-length::$README_DESCRIPTION_LENGTH"
+
+      - name: Validate that the README.md description length is greater than 0 lines
+        run: |
+          if [ ${{ steps.get-readme-description-length.outputs.description-length }} -lt 1 ]
+          then
+            echo "The README.md file does not have a description set"
+            exit 1
+          fi
