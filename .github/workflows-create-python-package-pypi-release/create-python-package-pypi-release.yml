@@ -6,7 +6,7 @@ on:
 
 jobs:
   create-python-package-pypi-release:
-    name: Create a python package release that can be installed via pip or poetry
+    name: Create a python package and upload it to PyPI so that can be installed via pip or poetry
     runs-on: ubuntu-latest
     permissions:
       contents: read   # Required to check out the code
