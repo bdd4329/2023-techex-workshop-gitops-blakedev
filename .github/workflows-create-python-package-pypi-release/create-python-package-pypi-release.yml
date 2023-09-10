@@ -11,6 +11,7 @@ jobs:
     permissions:
       contents: read   # Required to check out the code
       id-token: write  # Required for OIDC
+      issues: write    # Required to create an issue on failure
 
     env:
       PACKAGE_PATH: "./answers/my-scripts/mycoolpackage"
