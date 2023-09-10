@@ -24,7 +24,7 @@ jobs:
 
       - name: Validate that the there is a description set in the pyproject.toml file
         run: |
-          if [ ${{ steps.get-description-length.outputs.description-length }} -lt 1 ]
+          if [ ${{ steps.get-description-length.outputs.description-length }} -lt 2 ]
           then
             echo "The pyproject.toml file does not have a description set"
             exit 1
