@@ -1,0 +1,41 @@
+name: Convert a README.md file to Word document
+on:
+  push:
+    branches:
+      - intro-lab
+
+jobs:
+  runs-on: ubuntu-latest
+  
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Install python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install pandoc
+      run: |
+        # Pandoc features can break, so freeze the version by not using the repo version
+        wget -O /tmp/pandoc.deb https://github.com/jgm/pandoc/releases/download/2.19.2/pandoc-2.19.2-1-amd64.deb \
+          && sudo dpkg -i /tmp/pandoc.deb
+        pandoc --version 
+
+    - name: Convert README.md to README.docx
+      run: |
+        pandoc -f gfm -t docx -o README.docx ./README.md
+        ls -l README.docx 
+
+    - name: Create release of README.docx
+      uses: actions/create-release@v1
+      id: create_release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ github.run_number }}
+        release_name: README.docx v${{ github.run_number }}
+        draft: false
+        prerelease: false 
+    
