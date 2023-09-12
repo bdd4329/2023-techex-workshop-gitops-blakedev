@@ -11,7 +11,7 @@ jobs:
     environment: prod
 
     env:
-      PACKAGE_PATH: "./{{ vars.PACKAGE_NAME }}"
+      PACKAGE_PATH: "./${{ vars.PACKAGE_NAME }}"
     
     steps:
       - name: Checkout code
