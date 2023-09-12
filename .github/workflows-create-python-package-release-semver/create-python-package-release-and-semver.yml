@@ -2,15 +2,15 @@ name: Create python package release with semantic versioning tags
 on:
   push:
     branches:
-      - main
+      - create-python-package-release-and-semver
 
 jobs:
-  create-python-package-release-semvar:
+  create-python-package-release-semver:
     name: Create a python package release that can be installed via pip or poetry with sematic version pinning
     runs-on: ubuntu-latest
 
     env:
-      PACKAGE_PATH: "./answers/my-scripts/mycoolpackage"
+      PACKAGE_PATH: "./${{ vars.PACKAGE_NAME }}"
     
     steps:
       - name: Checkout code
@@ -69,10 +69,10 @@ jobs:
 
   update-semver:
     runs-on: ubuntu-latest
-    needs: create-python-package-release-semvar
+    needs: create-python-package-release-semver
 
     env:
-      PACKAGE_PATH: "./answers/my-scripts/mycoolpackage"
+      PACKAGE_PATH: "./${{ vars.PACKAGE_NAME }}"
 
     steps:
       - name: Checkout code
