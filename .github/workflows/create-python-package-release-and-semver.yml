@@ -8,6 +8,7 @@ jobs:
   create-python-package-release-semver:
     name: Create a python package release that can be installed via pip or poetry with sematic version pinning
     runs-on: ubuntu-latest
+    environment: prod
 
     env:
       PACKAGE_PATH: "./${{ vars.PACKAGE_NAME }}"
