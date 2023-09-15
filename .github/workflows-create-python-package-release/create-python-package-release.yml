@@ -2,15 +2,16 @@ name: Create python package release
 on:
   push:
     branches:
-      - main
+      - create-python-package-release
 
 jobs:
   create-python-package-release:
     name: Create a python package release that can be installed via pip or poetry
     runs-on: ubuntu-latest
+    environment: prod
 
     env:
-      PACKAGE_PATH: "./answers/my-scripts/mycoolpackage"
+      PACKAGE_PATH: "./${{ vars.PACKAGE_NAME }}"
     
     steps:
       - name: Checkout code
