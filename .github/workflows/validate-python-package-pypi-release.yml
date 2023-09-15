@@ -6,7 +6,7 @@ on:
 
 jobs:
   validate-python-package-pypi-release:
-    name: Create a python package release that can be installed via pip or poetry
+    name: Validate a python package release that can be installed via pip or poetry
     runs-on: ubuntu-latest
     environment: prod
 
