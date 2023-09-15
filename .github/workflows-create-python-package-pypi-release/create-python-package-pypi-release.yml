@@ -2,19 +2,20 @@ name: Create python package PyPI release
 on:
   push:
     branches:
-      - main
+      - create-python-package-pypi-release
 
 jobs:
   create-python-package-pypi-release:
     name: Create a python package and upload it to PyPI so that can be installed via pip or poetry
     runs-on: ubuntu-latest
+    environment: prod
     permissions:
       contents: read   # Required to check out the code
       id-token: write  # Required for OIDC
       issues: write    # Required to create an issue on failure
 
     env:
-      PACKAGE_PATH: "./answers/my-scripts/mycoolpackage"
+      PACKAGE_PATH: "./${{ vars.PACKAGE_NAME }}"
     
     steps:
       - name: Checkout code
@@ -28,10 +29,7 @@ jobs:
       - name: Install poetry
         run: curl -sSL https://install.python-poetry.org | python3 -
 
-      - name: Rename the package to the unique per-user name
-        run: sed -i -e 's/name = "mycoolpackage"/name = "mycoolpackage_${{ github.repository_owner }}"/g' ${{ env.PACKAGE_PATH }}/pyproject.toml
-
-      - name: Build mycoolpackage
+      - name: Build the package
         working-directory: ${{ env.PACKAGE_PATH }}
         run: poetry build
 
@@ -42,7 +40,6 @@ jobs:
       - name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          #repository-url: https://pypi.org/p/mycoolpackage_${{ github.repository_owner }}/
           packages-dir: ${{ env.PACKAGE_PATH }}/dist
           print-hash: true
           verbose: true

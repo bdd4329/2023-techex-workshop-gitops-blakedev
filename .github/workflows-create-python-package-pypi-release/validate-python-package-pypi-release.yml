@@ -2,15 +2,16 @@ name: Validate python package PyPI release
 on:
   pull_request:
     branches:
-      - main
+      - create-python-package-pypi-release
 
 jobs:
   validate-python-package-pypi-release:
-    name: Create a python package release that can be installed via pip or poetry
+    name: Validate a python package release that can be installed via pip or poetry
     runs-on: ubuntu-latest
+    environment: prod
 
     env:
-      PACKAGE_PATH: "./answers/my-scripts/mycoolpackage"
+      PACKAGE_PATH: "./${{ vars.PACKAGE_NAME }}"
     
     steps:
       - name: Checkout code
@@ -33,10 +34,10 @@ jobs:
       - name: Get the README.md description length
         id: get-readme-description-length
         run: |
-          README_DESCRIPTION_LENGTH=$(cat $PACKAGE_PATH/README.md | wc -l | awk '{print $1}')
+          README_DESCRIPTION_LENGTH=$(cat $PACKAGE_PATH/README.md | wc -c | awk '{print $1}')
           echo "::set-output name=description-length::$README_DESCRIPTION_LENGTH"
 
-      - name: Validate that the README.md description length is greater than 0 lines
+      - name: Validate that the README.md description length is greater than 0 characters
         run: |
           if [ ${{ steps.get-readme-description-length.outputs.description-length }} -lt 1 ]
           then
