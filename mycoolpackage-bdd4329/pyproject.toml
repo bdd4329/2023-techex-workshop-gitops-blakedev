@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "mycoolpackage-bdd4329"
-version = "0.1.5"
-description = "My cool package"
+version = "0.1.6"
+description = ""
 authors = ["Shannon Byrnes <sbyrnes@internet2.edu>"]
 readme = "README.md"
 packages = [{include = "my_cool_package"}]
